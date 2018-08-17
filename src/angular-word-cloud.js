@@ -15,7 +15,8 @@
             words: '=',
             width: '=',
             random: '=',
-            onClick: '='
+            onClick: '=',
+            font: '=?'
          },
          template: '<div></div>',
          controller: ['$scope', '$element', wordsCloudController],
@@ -25,6 +26,7 @@
 
       function wordsCloudController($scope, $element) {
          var self = this;
+         
          /* istanbul ignore next */
          var fill = (d3.hasOwnProperty('scale')) ? d3.scale.category20() : d3.scaleOrdinal(d3.schemeCategory20);
          var tooltip = d3.select('body')
@@ -86,7 +88,7 @@
                .style('font-size', function (d) {
                   return d.size + 'px';
                })
-               .style('font-family', 'Impact')
+               .style('font-family', self.font)
                .style('fill', function (d, i) {
                   return d.color || fill(i);
                })
@@ -101,15 +103,17 @@
                });
          }
 
-         function updateLayout(width, height, words, padding, rotate, random) {
+         function updateLayout(width, height, words, padding, rotate, random, font) {
             padding = padding || 5;
             rotate = rotate || defaultRotate;
             random = random || Math.random;
+            self.font = font = font || 'Impact';
             layout.size([width, height])
                .rotate(rotate)
                .random(random)
                .padding(padding)
-               .words(words);
+               .words(words)
+               .font(font);
             layout.start();
          }
 
@@ -123,7 +127,7 @@
          function watchListener(newVal) {
             var parameters = angular.copy(newVal);
             if (angular.isUndefined(parameters.words) || angular.isUndefined(parameters.width) || angular.isUndefined(parameters.height)) return;
-            updateLayout(parameters.width, parameters.height, parameters.words, parameters.padding, parameters.rotate, parameters.random);
+            updateLayout(parameters.width, parameters.height, parameters.words, parameters.padding, parameters.rotate, parameters.random, parameters.font);
          }
       }
    }
