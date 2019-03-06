@@ -7,7 +7,6 @@
 */
 
 import * as d3 from 'd3';
-import 'd3-cloud';
 import * as cloud from 'd3-cloud';
 
 (function () {
@@ -48,7 +47,7 @@ import * as cloud from 'd3-cloud';
          /**
           * layout grnerator by d3 and use drawListener to generate word cloud.
           */
-         var layout = d3.layout.cloud()
+         var layout = cloud()
             .fontSize(function (d) {
                return d.size;
             })
