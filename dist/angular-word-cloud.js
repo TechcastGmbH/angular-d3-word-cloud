@@ -6,6 +6,10 @@
  * Released under the MIT license.
 */
 
+import * as d3 from 'd3';
+import 'd3-cloud';
+import * as cloud from 'd3-cloud';
+
 (function () {
    'use strict';
    angular.module('angular-d3-word-cloud', [])
